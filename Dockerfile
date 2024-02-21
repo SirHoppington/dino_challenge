@@ -23,10 +23,10 @@ WORKDIR /usr/src/app
 # Copy tests to container
 
 # Run unit tests only.
-#RUN ["pytest", "-vv"]
+RUN ["pytest", "-vv"]
 
 # Create full image
-FROM test as production
+FROM base as production
 
 ADD run.sh /
 RUN chmod +x /run.sh
