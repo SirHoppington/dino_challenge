@@ -1,0 +1,7 @@
+version: '3.3'
+# Docker compose for for running dino_app
+
+services:
+  dino-app:
+    build: ./
+    container_name: dino-app
