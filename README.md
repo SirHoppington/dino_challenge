@@ -6,7 +6,9 @@
 
 The results for part 1 and part 2 will be returned in the docker logs.
 
-```docker-compose up```
+```
+docker-compose up
+```
 
 ### Option 2 - Run directly with python
 
