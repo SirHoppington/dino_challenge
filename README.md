@@ -2,7 +2,7 @@
 
 ## How to run
 
-### Option 1 - Run solution as a docker image
+### Option 1 - Run solution as a docker container
 
 The results for part 1 and part 2 will be returned in the docker logs.
 
