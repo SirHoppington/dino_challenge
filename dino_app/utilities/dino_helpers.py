@@ -1,5 +1,6 @@
 import csv
 
+
 # Function to read results from CSV
 def read_csv(filepath):
     try:
@@ -11,10 +12,16 @@ def read_csv(filepath):
             lengths = {}
             names = []
             for row in reader:
-                # Convert the length to a float by splitting based on m string, if empty set to 1
-                length = (
-                    float(row["length"].split("m")[0]) if row["length"] != "" else 1.0
-                )
+                try:
+                    # Convert the length to a float by splitting based on m string, if empty set to 1
+                    length = (
+                        float(row["length"].split("m")[0])
+                        if row["length"] != ""
+                        else 1.0
+                    )
+                except ValueError as e:
+                    print(f"Error converting to float: {e}")
+                    continue
                 # Check if species already exists in dictionary
                 if row["species"] in lengths:
                     lengths[row["species"]].append(length)
@@ -25,8 +32,15 @@ def read_csv(filepath):
         print(f"File not found: {filepath}")
     except PermissionError:
         print(f"Permission denied: {filepath}")
+    # Add a specific error handling for the csv module
+    except csv.Error as e:
+        print(f"Error reading CSV file at line {reader.line_num}: {e}")
+    # Add general error handling for any other exceptions
+    except Exception as e:
+        print(f"Unexpected error: {e} in function read_csv.")
 
     return lengths, names
+
 
 # Get average of the list of booleans
 def get_avg(lengths):
@@ -51,7 +65,7 @@ def get_same_names(names):
         try:
             # Sort letters and make unique using set and convert back to string
             unique_letters = "".join(sorted(set(name)))
-            # Assign as key for dictionary and add name to the associated key
+            # Assign as key for dictionary and add name to the associated key as a set
             if unique_letters in dict_of_letters:
                 dict_of_letters[unique_letters].add(name)
             else:
